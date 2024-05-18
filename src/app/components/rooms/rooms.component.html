@@ -1,0 +1,59 @@
+<!-- Property binding -->
+<h1>Welcome to {{ hotelName }}</h1>
+
+<!-- children components for @ViewChild and @ViewChildren -->
+<app-header></app-header>
+<app-header></app-header>
+
+<!-- access a stream data without manually subscribe and unsubscribe to it with using "async pipe", when ngOnDestroy is called, the asyn pipe unsubscribes from the stream
+    {{ rooms$ | async | json }}
+-->
+
+<h4>
+    <p>Stream Error: {{ getError$ | async }}</p>
+    <p>Rooms Count: {{ roomsCount$ | async }}</p>
+</h4>
+
+<!-- Event binding -->
+<button type="button" (click)="toggle()" class="btn btn-primary">Toggle</button>
+
+<!-- Structural directives: *ngIf, *ngFor, *ngSwitch -->
+<!-- Attribute directives: ngClass, ngStyle -->
+
+<p>Rooms available: {{ rooms.availableRooms ?? 'No rooms' }}</p>
+
+<h4>Fake JSON API: {{ totalBytes }} Bytes loaded</h4>
+
+<!-- 
+    <div *ngFor="let room of roomList | slice: 0:2">
+        <p>{{ room | json }}</p>
+    </div>
+-->
+
+
+<!-- parent-child relationship: data flow(properties, events) -->
+<div *ngIf="selectedRoom">{{ selectedRoom | json }}</div>
+
+<div>
+    <button type="button" routerLink="add">Add Room</button>
+    <br>
+    <button type="button" (click)="editRoom()">Edit Room</button>
+</div>
+
+<!-- access rooms$ stream with async pipe once and store it in a variable for further usage without subscribing/unsubscribing multiple times -->
+<div *ngIf="rooms$ | async as rooms">
+    <app-rooms-list
+        [roomList]="rooms"
+        (selectedRoom)="selectRoom($event)"
+        (deletedRoom)="deleteRoom($event)"
+        [title]="title">
+    </app-rooms-list>
+</div>
+
+<div [hidden]="hideRooms">
+    <h3>Number of rooms in total:</h3>
+    <p [ngStyle]="{ color: rooms.availableRooms ? 'green' : 'red' }" [innerText]="numberOfRooms"></p>
+</div>
+
+<!-- outlet for children routes of rooms-routing.module.ts -->
+<router-outlet></router-outlet>

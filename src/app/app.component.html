@@ -1,0 +1,41 @@
+<!-- Angular router: "href" would reload the page with another http request; "routerLink" treats it like a single page application -->
+<!--
+    <a [routerLink]="'employee'">Employee</a>
+    <br>
+    <a [routerLink]="'rooms'">Rooms</a>
+    <router-outlet></router-outlet>
+-->
+<app-navigation></app-navigation>
+
+
+<!-- Structural directive *ngSwitch 
+<div [ngSwitch]="role">
+    <div *ngSwitchCase="'Admin'">
+        <app-rooms></app-rooms>
+    </div>
+    <div *ngSwitchDefault>
+        You are not authorized to view this page!
+    </div>
+</div>
+
+<br><br><br><br><br><br>
+-->
+
+<!-- Content Projection 
+<app-container>
+    <app-rooms></app-rooms>
+    <app-employee></app-employee>
+    <h1>This is from "ng-content"</h1>
+</app-container>
+
+<br><br><br><br><br><br>
+-->
+
+<!-- template reference (#-notation) 
+<h1>Dynamically created components with template references:</h1>
+<div>
+    <ng-template #user></ng-template>
+</div>
+
+<div #wrapper>xxx</div>
+-->
